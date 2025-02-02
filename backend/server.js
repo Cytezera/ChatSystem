@@ -11,7 +11,7 @@ const db = mysql.createConnection({
 	host: process.env.DB_HOST,
 	user: process.env.DB_USER,
 	password: process.env.DB_PASSWORD, 
-	database: process.env.DB_DATABASE,
+	database: process.env.DB_NAME,
 
 	
 });
@@ -26,14 +26,16 @@ db.connect((err) => {
 
 app.post("/login", (req, res) => {
 	const { username, password } = req.body ;
-	db.query("select * from users where username = (?) AND password = (?) ; " , [username,password] ,(err, result) => {
-		res.json({ sucess:true } ) ;
+	db.query("select * from users where username = ? AND password = ? ; ", [username, password], (err, result )=> {
 		if (err) {
-			res.json({ sucess:true} ) ;
-		}else { 
-			res.json({ success:true } ) ;
-		}	
-	});	
+			return res.json({ loggedIn: false, message: "SQL Error",error: err  }) ;
+		}
+		if(result.length > 0 ) {
+			res.json( {loggedIn: true , message: "Log In Completed"   }) ;
+		}else {
+			res.json( {loggedIn: false , message: "Invalid username or password" }); 
+		}
+	});
 });
 const PORT = process.env.PORT || 5000; 
 app.listen(PORT,()=> console.log(`Server is running on port ${PORT}` ));

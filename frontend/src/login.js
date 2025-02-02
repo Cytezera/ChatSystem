@@ -10,11 +10,11 @@ const Login = ({onlogin}) => {
 		axios.post(API_URL, {username, password})
 			.then((response) => {
 				console.log(response);
-				if (response.data.success) {
-					alert("Login successful") ;
+				if (response.data.loggedIn) {
+					alert (response.data.message);	
 				
 				} else {
-					alert("Invalid username or password ");
+					alert (response.data.message);
 					setPassword("");
 				}
 			})
