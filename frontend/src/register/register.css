@@ -1,0 +1,48 @@
+import React, {useState} from "react" ; 
+import axios from "axios" ; 
+import "register.css";
+
+const API_URL = "http://localhost:5000/register";
+const Register = () => {
+	const [username, setUsername] = useState("");
+	const [password, setPassword] = usePassword("");
+	const [newPassword, setNewPassword] = useNewPassword("");
+		
+	const checkRegister = () => {
+		axios.post(API_URL, {username,email, password, newPassWord})
+			.then((response) => {
+				console.log
+			}	
+	}
+	return (
+		<div "container">
+			<h1 className="register-text" >Register</h1>
+			<input 
+				className="bar"
+				type = "text" 
+				placeholder = "username"
+				value = {username}
+				onChange={(e) => setUsername(e.target.value)}		
+			/>
+			<input 
+				className="email"
+				type="text"
+				placeholder = "email"
+			
+			<input 
+				className="bar"
+				type = "password"
+				placeholder = "password"
+				value = {password}
+				onChange={(e) => setpassword(e.target.value)}
+			/>
+			 <input className = "bar"
+				type = "password"
+				value = {newPassword}
+				onChange={(e) => setNewPassword(e.target.value)}
+			/>
+			<button class="button" onClick= { checkRegister}> Register </button>
+		</div>
+	);
+}
+export default Register;

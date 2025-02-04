@@ -1,13 +1,21 @@
-import React, {useState} from "react"; 
+import React, {useState,useEffect, useRef} from "react"; 
 import axios from "axios"; 
 import "./login.css";
 
 const API_URL = "http://localhost:5000/login" ; 
-const topBar = document.querySelector('.error-container');
 const Login = ({onlogin}) => {
+	const topBarRef = useRef(null);
 	const [username, setUsername] = useState(""); 
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
+	const [isLoginPage, setIsLogInPage] = useState(false);
+	useEffect(() => {
+		if (window.location.pathname === "/login"){
+			setIsLogInPage(true);
+		}else {
+			setIsLogInPage(false);
+		}	
+	},[]);
 	const checkValid = () => {
 		axios.post(API_URL, {username, password})
 			.then((response) => {
@@ -18,14 +26,16 @@ const Login = ({onlogin}) => {
 				} else {
 					setError(response.data.message);
 					setPassword("");
-					topBar.style.display = 'flex' ; 
+					topBarRef.current.style.display = 'flex' ; 
 					setTimeout(function(){
-						topBar.style.display = 'none';
+						topBarRef.current.style.display = 'none';
 					},1500);		
 				}
 			})
 	};
-	
+	if (!isLoginPage){
+		return null;
+	}		
 	return (
 			<div class="container">
 				<h1 class= "log-in-text">Log In </h1> 
@@ -44,14 +54,15 @@ const Login = ({onlogin}) => {
 					value = {password}
 					onChange={(e) => setPassword(e.target.value)}
 				/>
-				<div class="error-container"> 
+				<div ref={topBarRef} class="error-container"> 
 					<h1 class="error">ERROR</h1>
 					<h2 class="error2">{error}</h2>
 				</div>
-				<div class="butotn-row">
+				<div class="button-row">
 					<button class= "button" onClick ={checkValid}> 
 						Log In 	
 					</button> 
+					<a href="register">Register</a>
 				</div>
 			</div>
 	);	

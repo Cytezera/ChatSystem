@@ -36,73 +36,27 @@
 .bar:focus{
 	box-shadow:5px 5px 10px grey;
 }
-.button-row{
-	width:50%;
-	align-items:center;
-	justify-content:center;
-	display:flex;
-	margin-left:auto;
-	margin-right:auto;
-	height: 20px;
-	margin-top: 10px;
-}
-.button{
-	width: 80px ; 
-	background-color: #C4DBF6;
-	border:none;
-	width: 100px;
-	height:40px;
-}
-.button:hover{
-	background-color: #A3C4F3;
-	transform: scale(1.05);	
 
-
-}
-.error-container{
-	background-color: #FFD2D2;
-	color: #D8000C;
-	width:50%;
-	margin: 20px auto auto auto;
-	height: 40px;
-	padding: 5px 10px 5px 10px;
-}
-.container{
-	border:solid;
-	border-color:grey;
-	border-radius:1px;
-	border-width:1px;
-	box-shadow: 5px 5px 10px grey; 
-	background-color: white; 
-	display: flex;
-	width: 30%;
-	height: 300px;
-	flex-direction: column;
-	position: absolute;
-	padding: 30px;
-}
 .log-in-text{
 	text-align:center;
 	color: #2A3D6A;
 }
-.bar{
+.button-row{
 	width:50%;
 	align-items:center;
-	justify-content:center;
+	justify-content: space-between;
 	display:flex;
 	margin-left:auto;
 	margin-right:auto;
-	height: 20px;
+	height: 70px;
 	margin-top: 10px;
 }
-
 .button{
 	width: 80px ; 
 	background-color: #C4DBF6;
 	border:none;
 	width: 100px;
 	height:40px;
-	margin: 15px auto auto auto;
 }
 .button:hover{
 	background-color: #A3C4F3;
