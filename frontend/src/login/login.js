@@ -1,6 +1,7 @@
 import React, {useState,useEffect, useRef} from "react"; 
 import axios from "axios"; 
 import "./login.css";
+import { useNavigate } from "react-router-dom";
 
 const API_URL = "http://localhost:5000/login" ; 
 const Login = ({onlogin}) => {
@@ -9,6 +10,7 @@ const Login = ({onlogin}) => {
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
 	const [isLoginPage, setIsLogInPage] = useState(false);
+	const navigate = useNavigate();
 	useEffect(() => {
 		if (window.location.pathname === "/login"){
 			setIsLogInPage(true);
@@ -21,7 +23,7 @@ const Login = ({onlogin}) => {
 			.then((response) => {
 				console.log(response);
 				if (response.data.loggedIn) {
-					alert (response.data.message);	
+					navigate("/");
 					setError("");	
 				} else {
 					setError(response.data.message);

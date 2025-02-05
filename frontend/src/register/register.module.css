@@ -1,0 +1,66 @@
+.container{
+	margin:50px 25% ;
+	border:solid;
+	border-color:grey;
+	border-radius:1px;
+	border-width:1px;
+	box-shadow: 5px 5px 10px grey; 
+	background-color: white; 
+	display: flex;
+	width: 50%;
+	height: 550px;
+	flex-direction: column;
+	position: absolute;
+	padding: 30px;
+}
+
+.registertext{
+	text-align:center;
+	color: #2A3D6A;
+}
+.barcontainer{
+	width:90%;
+}
+.bartitle{
+	font-size:15px;
+}
+.bar{
+	width:100%;
+	height: 30px;
+}
+.button{
+	width: 80px ; 
+	background-color: #C4DBF6;
+	border:none;
+	width: 100px;
+	height:40px;
+	margin-left: 80%;
+	margin-top: 20px;
+}
+.button:hover{
+	background-color: #A3C4F3;
+	transform: scale(1.05);	
+
+
+}
+.errorcontainer{
+	background-color: #FFD2D2;
+	color: #D8000C;
+	margin-top: 20px;
+	width:90%;
+	height: 50px;
+	padding: 5px 10px 5px 10px;
+	display: none;
+	flex-direction:column;
+}
+.error{
+	font-size:12px;
+	margin:0;
+	font-weight:700;
+}
+.error2{
+	font-size:12px;
+	margin:0;
+	font-weight:400;
+}
+
