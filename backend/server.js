@@ -1,4 +1,5 @@
 require("dotenv").config();
+const jwt = require("jsonwebtoken");
 const express = require("express"); 
 const mysql = require("mysql2");
 const cors = require("cors");
@@ -34,7 +35,14 @@ app.post("/login", (req, res) => {
 			return res.json({ loggedIn: false, message: "SQL Error",error: err  }) ;
 		}
 		if(result.length > 0 ) {
-			res.json( {loggedIn: true , message: "Log In Completed"   }) ;
+			const user = result[0];
+			const token = jwt.sign(
+				{username: user.username},
+				process.env.JWT_SECRET_KEY,
+				{ expiresIn: '1h' }
+			);
+			return res.json( {loggedIn: true , message: "Log In Completed" , token: token, user:{ username: user.username}}) ;
+
 		}else {
 			res.json( {loggedIn: false , message: "Invalid username or password" }); 
 		}

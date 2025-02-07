@@ -23,6 +23,8 @@ const Login = ({onlogin}) => {
 			.then((response) => {
 				console.log(response);
 				if (response.data.loggedIn) {
+					localStorage.setItem('token', response.data.token);
+					localStorage.setItem('user', JSON.stringify(response.data.user));
 					navigate("/");
 					setError("");	
 				} else {
