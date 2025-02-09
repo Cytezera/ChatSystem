@@ -27,6 +27,17 @@ db.connect((err) => {
 });
 
 
+app.get ("/people", (req,res) => {
+	const {username } = req.query; 
+	const query = `Select friend_id, case when user1 = ? then user2 else user1 end as friend from friends where (user1 = ? or user2 = ? ) and status = 'accepted';`;
+	db.query( query ,[username,username,username] , (err, results) => { 
+		if (err) {
+			return res.json({error: err} ) ;
+		}else {
+			return res.json(results);
+		}
+	});
+});
 app.post("/login", (req, res) => {
 	const { username, password } = req.body ;
 	hashedPassword = createHash('sha256').update(password).digest('hex');

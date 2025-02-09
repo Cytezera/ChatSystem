@@ -6,6 +6,7 @@ import Login from "./login/login.js";
 import Register from "./register/register.js";
 import Landing from "./landingPage/landing.js";
 import Dashboard from "./dashboard/dashboard.js";
+import Navbar from "./navbar/navbar.js"; 
 function App() {
 	const [isLoggedIn , setIsLoggedIn] = useState(false);
 	useEffect(() =>{
@@ -20,6 +21,7 @@ function App() {
 	},[]);
   return (
 	<div className="body">
+		{isLoggedIn} <Navbar/> ;
 		<Routes>
 			<Route path = "/" element = { isLoggedIn ? <Dashboard/> : <Landing/>} />
 			<Route path="/register" element={<Register />} />
