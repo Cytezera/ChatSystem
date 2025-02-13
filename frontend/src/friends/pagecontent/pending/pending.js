@@ -10,6 +10,18 @@ const Pending = () => {
 		const storedUsername = localStorage.getItem("user");
 		return storedUsername ? JSON.parse(storedUsername).username : " " ;
 	});
+	const accept = (id) => {
+
+		axios.post(API_URL, {id})
+			.then((response)=>{
+				setPending((pending) => 
+					pending.map((p) => 
+						p.friend_id === id ? { ...p, status:"accepted" } : p		
+			)
+		);
+				console.log(id);	
+			});
+	}
 	useEffect (() =>{
 		axios.get(`${API_URL}?username=${username}`)
 			.then((response)=>{
@@ -17,8 +29,22 @@ const Pending = () => {
 			});
 	},[username]);	
 	return (
-		<div className={styles.pendingcontainer}> 
-			
+		<div className={styles.pending}> 
+			<div className ={styles.text}> 
+				<h1> Pending </h1>
+			</div>	
+			<div className = {styles.pendingcontainer}>
+				{pending.map((p)=>(
+					<div key = {p.friend_id} className={styles.section}>
+						<div className = {styles.sectiontext}>
+							{p.friend}
+						</div>
+						<div className = {styles.sectionbutton}>
+							<button onClick={ () => accept(p.friend_id)}  className={styles.button}>+</button>
+						</div>
+					</div>
+				))}
+			</div>
 		</div>
 	)
 }

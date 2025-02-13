@@ -15,7 +15,6 @@ const db = mysql.createConnection({
 	password: process.env.DB_PASSWORD, 
 	database: process.env.DB_NAME,
 
-	
 });
 
 db.connect((err) => {
@@ -25,10 +24,18 @@ db.connect((err) => {
 	}
 	console.log("Database successfully conencted" ) ; 
 });
-
+app.post("/pending", (req, res) => {
+	const {id} = req.body; 
+	const query = "update friends set status = 'accepted' where friend_id = ? ;";
+	db.query(query, [id] , (err, results ) => {
+		if (err) {
+			return res.json({error:err});
+		}
+	});
+});	
 app.get("/pending", (req,res) => {
 	const {username} = req.query; 
-	const query = `Select friend_id, case when user1 = ? then user2 else user1 end as friend from friends where (user1 = ? or user2 = ? ) and status = 'pending'; `; 
+	const query = `Select friend_id, user1 as friend from friends where user2 = ?   and status = 'pending'; `; 
 	db.query(query, [username, username, username ] , (err, results) =>{
 		if (err) {
 			return res.json({error:err});
