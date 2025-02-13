@@ -26,6 +26,17 @@ db.connect((err) => {
 	console.log("Database successfully conencted" ) ; 
 });
 
+app.get("/pending", (req,res) => {
+	const {username} = req.query; 
+	const query = `Select friend_id, case when user1 = ? then user2 else user1 end as friend from friends where (user1 = ? or user2 = ? ) and status = 'pending'; `; 
+	db.query(query, [username, username, username ] , (err, results) =>{
+		if (err) {
+			return res.json({error:err});
+		}else {
+			return res.json(results);
+		}
+	});
+});
 
 app.get ("/people", (req,res) => {
 	const {username } = req.query; 
@@ -38,6 +49,32 @@ app.get ("/people", (req,res) => {
 		}
 	});
 });
+app.post("/add/addfriend" , (req,res) => {
+	const { username, target } = req.body; 
+	const query = `insert into friends (user1, user2) values ( ? , ? ); ` ; 
+	db.query(query , [username, target] , (err, results ) => {
+		if (err) {
+			return res.json ({error: err}); 
+		}else {
+			return;
+		}
+	});
+	
+});
+app.post("/add", (req,res) => {
+	let { username, search } = req.body; 
+	search = `%${search}%`;
+	const query = `select distinct u.username, coalesce(f.status,'none') as status from users u left join friends f on((f.user1 = u.username and f.user2 = ? ) or  (f.user2 = u.username and f.user1 = ? )) and f.user1 != f.user2  where u.username like ? and u.username != ?  ;` 
+	db.query( query, [username, username, search, username] , (err , results) => {
+		if (err) {
+			return res.json({error:err}); 
+		}else {
+			return res.json(results);
+		}
+	});	
+
+});
+
 app.post("/login", (req, res) => {
 	const { username, password } = req.body ;
 	hashedPassword = createHash('sha256').update(password).digest('hex');

@@ -1,0 +1,24 @@
+.sidebar{
+	height:100%;
+	margin-top:80px;
+	width:200px;
+	display:fixed;
+}
+
+.button{
+	display:flex;
+	height:	50px;
+	width:200px;
+	align-items:center;
+	justify-content:center;
+	border:none;
+	background-color:#f4f4f4;
+	transition:0.2s;
+}
+.button:hover{
+	background-color:#c4d8f6;	
+
+}
+.button:focus{
+	background-color:#c4d8f6;
+}

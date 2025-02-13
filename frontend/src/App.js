@@ -7,6 +7,7 @@ import Register from "./register/register.js";
 import Landing from "./landingPage/landing.js";
 import Dashboard from "./dashboard/dashboard.js";
 import Navbar from "./navbar/navbar.js"; 
+import Friends from "./friends/friends.js";
 function App() {
 	const [isLoggedIn , setIsLoggedIn] = useState(false);
 	useEffect(() =>{
@@ -21,8 +22,9 @@ function App() {
 	},[]);
   return (
 	<div className="body">
-		{isLoggedIn} <Navbar/> ;
+		{isLoggedIn} <Navbar/> 
 		<Routes>
+			<Route path = "/friends" element = {<Friends/>}/>
 			<Route path = "/" element = { isLoggedIn ? <Dashboard/> : <Landing/>} />
 			<Route path="/register" element={<Register />} />
 			<Route path="/login" element= {<Login/>}/>

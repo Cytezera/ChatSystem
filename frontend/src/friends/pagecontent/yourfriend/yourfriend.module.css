@@ -1,0 +1,41 @@
+.yourfriend{
+        height:100vh;
+        flex:1;
+        margin-left: 200px;
+        top:80px;
+        left:0;
+        right:0;
+        position:fixed;
+        justify-content:center;
+}
+.text{
+	color: #333;
+	width:70%;
+	margin: 20px auto;
+}
+.friendContainer{
+	width:70%;
+	height:auto;
+	margin: 50px auto;
+	display:grid;
+	grid-template-columns: repeat(3,1fr);
+	gap: 20px;
+	padding:20px;
+}
+.section {
+	background-color:white;
+	border:2px solid black;
+	height:45px;
+	font-size:16px;
+	color :#333;
+	padding:15px;
+	box-shadow:3px 3px 8px grey;
+	align-items:center;
+	justify-content:center;
+	font-weight:bold;
+	display:flex;
+}
+
+.section:hover{
+	transform: scale(1.05);
+}

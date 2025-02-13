@@ -1,0 +1,24 @@
+.sidebar{
+	margin-top:80px;
+	min-width:300px;
+	max-width:400px;
+}
+.peopleContainer{
+	display:flex;
+	height:90px;
+	width:400px;
+	border:none;
+	background-color:#f4f4f4;
+	box-shadow: 2px 4px 10px rgba(0,0,0,0,2);
+	font-size:1rem;
+	padding:10px 20px;
+	transition:0.3s;
+	align-items:center;
+	justify-content:center;
+}
+.peopleContainer:hover{
+	background-color:#c4d8f6;
+}
+.peopleContainer:focus{ 
+	background-color: #c4d8f6;
+}
