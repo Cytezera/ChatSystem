@@ -11,15 +11,17 @@ const Pending = () => {
 		return storedUsername ? JSON.parse(storedUsername).username : " " ;
 	});
 	const accept = (id) => {
+		setPending((pending) => 
+			pending.map((p) => 
+				p.friend_id === id ? { ...p, status:"accepted" } : p		
+			)
+		);
 
 		axios.post(API_URL, {id})
 			.then((response)=>{
-				setPending((pending) => 
-					pending.map((p) => 
-						p.friend_id === id ? { ...p, status:"accepted" } : p		
-			)
-		);
-				console.log(id);	
+
+		
+			console.log(response.data);
 			});
 	}
 	useEffect (() =>{
@@ -40,7 +42,9 @@ const Pending = () => {
 							{p.friend}
 						</div>
 						<div className = {styles.sectionbutton}>
-							<button onClick={ () => accept(p.friend_id)}  className={styles.button}>+</button>
+							{ p.status === "accepted" ? null : 
+								<button onClick={ () => accept(p.friend_id)}  className={styles.button}>+</button>
+							}
 						</div>
 					</div>
 				))}

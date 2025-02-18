@@ -1,11 +1,15 @@
 require("dotenv").config();
+const { Server } = require("socket.io");
 const jwt = require("jsonwebtoken");
 const express = require("express"); 
 const mysql = require("mysql2");
 const cors = require("cors");
+const http = require("http");
 const { createHash} = require ('crypto'); 
 
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server, { cors: { origin: "*", methods: ["GET","POST"]}});
 app.use(express.json());
 app.use(cors());
 
@@ -35,7 +39,7 @@ app.post("/pending", (req, res) => {
 });	
 app.get("/pending", (req,res) => {
 	const {username} = req.query; 
-	const query = `Select friend_id, user1 as friend from friends where user2 = ?   and status = 'pending'; `; 
+	const query = `Select status,friend_id, user1 as friend from friends where user2 = ?   and status = 'pending'; `; 
 	db.query(query, [username, username, username ] , (err, results) =>{
 		if (err) {
 			return res.json({error:err});
@@ -118,5 +122,41 @@ app.post("/register", (req,res) => {
 		return res.json( {registration:true });	
 	}); 
 });
+app.post("/chat/messages", (req,res) => {
+	const {chat } = req.body ; 
+	const query = "select * from messages where friend_id = (?); " ; 
+	db.query(query, [chat] ,(err, results) => {
+		if (err){
+			return res.json({error: err} ) ;
+	
+		}else { 
+			return res.json(results) ;
+		}
+	}); 
+});
+io.on("connection", (socket) => {
+	console.log("User connected: " , socket.id);
+	socket.on("joinChat" , (friend_id) => {
+		socket.join(friend_id);
+	});
+	
+	socket.on("sendMessage", ({friend_id, sender,messages} ) => {
+		db.query("insert into messages (friend_id, sender, messages) values (?, ? , ?); ", [ friend_id, sender, messages],(err,results) => { 
+			if (!err){
+				 io.to(friend_id).emit("newMessage",{sender, messages});
+				
+			}else {
+				console.log("error inserting message into database", err);
+			}
+		});
+	});		
+	socket.on("disconnect", ()=>{
+		console.log("user disconnected", socket.id);
+	});
+});
+
+app.get("/", (req,res) => res.send("CHat API is running ")) ;
 const PORT = process.env.PORT || 5000; 
-app.listen(PORT,()=> console.log(`Server is running on port ${PORT}` ));
+server.listen(PORT, ()=> {
+	console.log(`Server is running on port ${PORT} `);
+});

@@ -4,7 +4,7 @@ import styles from "./people.module.css" ;
 
 const API_URL = "http://localhost:5000/people"; 
 
-const People = () => {
+const People = ({onSelect}) => {
 	const [people,setPeople] = useState([]);
 	const [username,setUsername] = useState(() =>{
 		const storedUser = localStorage.getItem("user");
@@ -20,7 +20,7 @@ const People = () => {
 	return (
 		<div className={styles.sidebar}> 
 			{people.map((p,index) => (
-				<button key = {p.friend_id } className={styles.peopleContainer}>
+				<button key = {p.friend_id } onClick={()=>onSelect(p.friend_id) }className={styles.peopleContainer}>
 					{p.friend}	
 				</button>
 			))}	

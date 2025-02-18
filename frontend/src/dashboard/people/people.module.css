@@ -1,7 +1,13 @@
 .sidebar{
+	position:fixed;
+	z-index:1000;
+	height:100vh;
+	background-color: #f4f4f4;
 	margin-top:80px;
 	min-width:300px;
 	max-width:400px;
+	border:  2px solid #d1d1d1;
+        box-shadow: 0px 9px 6px rgba(0, 0, 0, 0.1);
 }
 .peopleContainer{
 	display:flex;
@@ -15,7 +21,10 @@
 	transition:0.3s;
 	align-items:center;
 	justify-content:center;
+	border: 1px solid #d1d1d1;
+        box-shadow: 0px 9px 6px rgba(0, 0, 0, 0.1);
 }
+
 .peopleContainer:hover{
 	background-color:#c4d8f6;
 }

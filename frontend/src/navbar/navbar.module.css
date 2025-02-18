@@ -1,4 +1,6 @@
 .navbar{
+	background-color: #f4f4f4;
+	z-index:100000;
 	display:flex;
 	position:fixed;
 	top:0;
