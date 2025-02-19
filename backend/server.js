@@ -143,8 +143,9 @@ io.on("connection", (socket) => {
 	socket.on("sendMessage", ({friend_id, sender,messages} ) => {
 		db.query("insert into messages (friend_id, sender, messages) values (?, ? , ?); ", [ friend_id, sender, messages],(err,results) => { 
 			if (!err){
-				 io.to(friend_id).emit("newMessage",{sender, messages});
-				
+				socket.to(friend_id).emit("newMessage",{sender, messages});
+				socket.emit("newMessage", {sender,messages,});		
+			
 			}else {
 				console.log("error inserting message into database", err);
 			}

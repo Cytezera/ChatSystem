@@ -21,7 +21,7 @@ const Dashboard = () => {
 	return (
 		<div>
 			<People onSelect={setSelectedChat}/>
-			<Chat chat={selectedChat}/> 
+			{selectedChat ? <Chat chat={selectedChat}/> : null}
 		</div>	
 	);
 }

@@ -6,12 +6,24 @@ import io from "socket.io-client";
 const socket = io("http://localhost:5000");
 const API_URL = ("http://localhost:5000/chat");
 const Chat = ({chat}) => {
+
+	const messagesEndRef = useRef(null);	
+
+	const handleKeyDown = (e) => {
+		if (e.key === "Enter"){
+			console.log("enter key pressed");
+			sendMessage();
+		}
+	};
 	const [username, setUsername] = useState(()=> {
 		const storedUsername = localStorage.getItem("user");
 		return storedUsername ? JSON.parse(storedUsername).username : " " ;
 	});	
 	const [messages, setMessages] = useState([]); 
 	const [newMessages, setNewMessages] = useState("");
+	useEffect(() => {
+		messagesEndRef.current?.scrollIntoView({behavior:"smooth"});	
+	}, [messages]);
 	useEffect(() => {
 
 		axios.post(`${API_URL}/messages`, {chat})
@@ -25,12 +37,11 @@ const Chat = ({chat}) => {
 
 		socket.emit("joinChat", chat) ;	
 		socket.on("newMessage", (msg) => {
-			setMessages(prev => [...prev,msg]);	
+			setMessages(prev => [...prev,{...msg, created_at: new Date().toISOString() }]);	
 		});
 		return () => socket.off("newMessage");
 		
 	},[chat]);
-	
 	const sendMessage = () => {
 		if (newMessages === ("")) return ;
 		console.log("ID", chat , "sender:" ,username , "messages:" , newMessages);
@@ -42,7 +53,7 @@ const Chat = ({chat}) => {
 		<div className = {styles.chat}> 
 			<div className = {styles.message}>
 				{messages.map((message) => (
-					<div key={message.id} className = {styles.section}>
+					<div key={message.id} className = {`${styles.section} ${message.sender === username ? styles.userMessage : styles.sender}`}>
 						<div className = {styles.name}>{message.sender}:  </div>
 						<div className={styles.sectionmessage}> 
 							<div className={styles.messagecontent}>{message.messages}</div>
@@ -61,10 +72,11 @@ const Chat = ({chat}) => {
 					</div>
 					
 				))}
+				<div ref ={messagesEndRef}/>
 			</div> 
 			<div className = {styles.buttonrow}>
-				<input type ="text" placeholder = "Type a message" className={styles.bar}  value={newMessages} onChange={(e)=>setNewMessages(e.target.value)}/>
-				<button className={styles.button} onClick={sendMessage}> Send </button> 	
+				<input type ="text" onKeyDown={handleKeyDown} laceholder = "Type a message" className={styles.bar}  value={newMessages} onChange={(e)=>setNewMessages(e.target.value)}/>
+				<button className={styles.button} onClick={sendMessage} > Send </button> 	
 			</div>
 		</div>
 	)

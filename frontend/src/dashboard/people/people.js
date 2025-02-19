@@ -6,6 +6,7 @@ const API_URL = "http://localhost:5000/people";
 
 const People = ({onSelect}) => {
 	const [people,setPeople] = useState([]);
+	const [selectedPeople, setSelectedPeople] = useState("");
 	const [username,setUsername] = useState(() =>{
 		const storedUser = localStorage.getItem("user");
 		return storedUser ? JSON.parse(storedUser).username : " ";
@@ -17,10 +18,14 @@ const People = ({onSelect}) => {
 		});
 	},[username]);
 
+	const handleSelect = (friend_id) => {
+		setSelectedPeople(friend_id); 
+		onSelect(friend_id);
+	}
 	return (
 		<div className={styles.sidebar}> 
 			{people.map((p,index) => (
-				<button key = {p.friend_id } onClick={()=>onSelect(p.friend_id) }className={styles.peopleContainer}>
+				<button key = {p.friend_id } onClick={() => handleSelect(p.friend_id) } className={`${styles.peopleContainer} ${ selectedPeople === p.friend_id ? styles.selected : ""}`}>
 					{p.friend}	
 				</button>
 			))}	

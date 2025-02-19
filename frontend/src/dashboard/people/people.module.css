@@ -28,6 +28,6 @@
 .peopleContainer:hover{
 	background-color:#c4d8f6;
 }
-.peopleContainer:focus{ 
+.selected{ 
 	background-color: #c4d8f6;
 }

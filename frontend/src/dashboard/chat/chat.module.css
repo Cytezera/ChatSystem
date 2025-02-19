@@ -1,6 +1,8 @@
 .chat{
 	z-index: -100;
-	height: 100vh; 
+	height: calc(100% -90px); 
+	display:flex;
+	flex-direction:column;
 	flex: 1; 
 	top: 80px;
 	left: 400px; 
@@ -8,14 +10,17 @@
 	position:absolute;
 	width:auto;
 	padding:10px;
+
 }
 .message {
-	max-height:calc(100%-130px);
+	max-height:calc(100vh-140px);
 	padding:10px;
-	margin-bottom:60px;
+	margin-bottom: 0 ;
+	flex:1;
+	overflow-y: auto;
+	
 }
 .section {
-	background-color: #c4d8f6;
 	height:auto;
 	width:auto;
 	padding: 5px 10px;		
@@ -23,6 +28,9 @@
 	margin-bottom:4px;
 	flex-direction:column;
 	
+}
+.sender{
+	background-color: #c4d8f6;
 }
 .name{
 	font-weight:bold;
@@ -81,4 +89,7 @@
 .button:active {
 
 	background-color: #004494;
+}
+.userMessage{
+	background-color: #c4f6c4;
 }
