@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react" ;
 import axios from "axios"; 
 import styles from "./people.module.css" ; 
 
-const API_URL = "http://localhost:5000/people"; 
+const API_URL = `${process.env.REACT_APP_API_URL}/people`; 
 
 const People = ({onSelect}) => {
 	const [people,setPeople] = useState([]);
@@ -12,6 +12,7 @@ const People = ({onSelect}) => {
 		return storedUser ? JSON.parse(storedUser).username : " ";
 	}); 
 	useEffect(() => {
+		console.log(API_URL);
 		axios.get(`${API_URL}?username=${username}`)
 			.then((response) => {
 				setPeople(response.data);

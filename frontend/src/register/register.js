@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios" ; 
 import styles from "./register.module.css"; 
 
-const API_URL = "http://localhost:5000/register";
+const API_URL = `${process.env.REACT_APP_API_URL}/register`;
 const Register = () => {
 	const errorMessage = useRef(null);
 	const [username, setUsername] = useState("");

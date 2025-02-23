@@ -2,7 +2,7 @@ import react, { useState, useEffect } from "react" ;
 import axios from "axios"; 
 import styles from "./add.module.css";
 
-const API_URL = "http://localhost:5000/add";
+const API_URL = `${process.env.REACT_APP_API_URL}/add`;
 
 const Add = () => {
 	const [search, setSearch] = useState("");

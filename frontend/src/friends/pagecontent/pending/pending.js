@@ -2,7 +2,7 @@ import react, {useState, useEffect } from "react" ;
 import axios from "axios"; 
 import styles from "./pending.module.css";
 
-const API_URL = "http://localhost:5000/pending";
+const API_URL = `${process.env.REACT_APP_API_URL}/pending`;
 
 const Pending = () => { 
 	const [pending,setPending] = useState([]);

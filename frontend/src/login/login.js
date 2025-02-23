@@ -3,7 +3,7 @@ import axios from "axios";
 import "./login.css";
 import { useNavigate } from "react-router-dom";
 
-const API_URL = "http://localhost:5000/login" ; 
+const API_URL = `${process.env.REACT_APP_API_URL}/login` ; 
 const Login = ({onlogin}) => {
 	const topBarRef = useRef(null);
 	const [username, setUsername] = useState(""); 

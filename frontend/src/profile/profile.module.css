@@ -1,0 +1,20 @@
+.profile{
+	margin-top:80px;
+	display:flex;
+	justify-content:center;
+	height: 100vh;
+	align-items:center;
+	
+}
+.logout{
+	border: 2px solid #cc0000;
+	color : #ffffff;
+	width:300px;
+	height:150px;
+	background-color:#ff4d4d;
+	font-size:50px;
+}
+.logout:hover{
+	background-color: #cc0000;
+}
+
