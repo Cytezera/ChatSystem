@@ -11,14 +11,21 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: "*", methods: ["GET","POST"]}});
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+	origin: "https://localhost:3000",
+	methods: ["GET", "POST"],
+	credentials: true
+}));
 
 const db = mysql.createConnection({
 	host: process.env.DB_HOST,
 	user: process.env.DB_USER,
 	password: process.env.DB_PASSWORD, 
 	database: process.env.DB_NAME,
-
+	port: process.env.DB_PORT,
+	connectTimeout: 30000, 
+	waitForConnections: true,
+	queueLimit: 0 
 });
 
 db.connect((err) => {
