@@ -12,7 +12,7 @@ const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: "*", methods: ["GET","POST"]}});
 app.use(express.json());
 app.use(cors({
-	origin: "https://localhost:3000",
+	origin: "http://localhost:3000",
 	methods: ["GET", "POST"],
 	credentials: true
 }));
@@ -164,7 +164,4 @@ io.on("connection", (socket) => {
 });
 
 app.get("/", (req,res) => res.send("CHat API is running ")) ;
-const PORT = process.env.PORT || 5000; 
-server.listen(PORT, ()=> {
-	console.log(`Server is running on port ${PORT} `);
-});
+module.exports = app ;
